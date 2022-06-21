@@ -15,7 +15,7 @@ struct AddToDoView: View {
     var itemToEdit: TodoItem?
     
     @State var name: String
-    @State var date: Date
+    @State var dueDate: Date
     @State var dateToShow: String
     
     init(items: Binding<[TodoItem]>, itemToEdit: TodoItem? = nil) {
@@ -24,11 +24,11 @@ struct AddToDoView: View {
         
         if let item = itemToEdit {
             _name = State(initialValue: item.name)
-            _date = State(initialValue: item.date)
-            _dateToShow = State(initialValue: item.date.formatted())
+            _dueDate = State(initialValue: item.dueDate)
+            _dateToShow = State(initialValue: item.dueDate.formatted())
         } else {
             _name = State(initialValue: "")
-            _date = State(initialValue: Date())
+            _dueDate = State(initialValue: Date())
             _dateToShow = State(initialValue: Date().formatted())
         }
     }
@@ -45,12 +45,12 @@ struct AddToDoView: View {
     func buttonTapped() {
         if let item = itemToEdit {
             item.name = name
-            item.dateToShow = date.formatted()
-            let item = TodoItem(name: name, date: date)
+            item.dateToShow = dueDate.formatted()
+            let item = TodoItem(name: name, dueDate: dueDate)
             items.append(item)
             items.removeLast()
         } else {
-            let item = TodoItem(name: name, date: date)
+            let item = TodoItem(name: name, dueDate: dueDate)
             items.append(item)
         }
         mode.wrappedValue.dismiss()
@@ -59,7 +59,7 @@ struct AddToDoView: View {
     var body: some View {
         Form {
             TextField("Name", text: $name)
-            DatePicker("Date", selection: $date)
+            DatePicker("Date", selection: $dueDate)
         }
         .navigationTitle(Text("Add new ToDo"))
         .toolbar {

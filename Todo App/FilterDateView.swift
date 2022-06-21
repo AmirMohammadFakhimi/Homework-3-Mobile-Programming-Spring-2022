@@ -11,27 +11,27 @@ struct FilterDateView: View {
 
     @Binding var items: [TodoItem]
     @State var filteredItems: [TodoItem] = []
-    @State var date: Date
+    @State var dueDate: Date
     
     init(items: Binding<[TodoItem]>) {
         self._items = items
-        _date = State(initialValue: Date())
+        _dueDate = State(initialValue: Date())
     }
 
-    [picker addTarget:self action:@selector(dateChanged:) 
-              forControlEvents:UIControlEventValueChanged]
-
-    func dateChanged:(id)sender{
-        for item in items {
-            if item.date == date {
-                filteredItems.append(item)
-            }
-        }
-    }
+//    [picker addTarget:self action:@selector(dateChanged:)
+//              forControlEvents:UIControlEventValueChanged]
+//
+//    func dateChanged:(id)sender{
+//        for item in items {
+//            if item.date == date {
+//                filteredItems.append(item)
+//            }
+//        }
+//    }
     
     func buttonTapped() {
         for item in items {
-            if item.date == date {
+            if item.dueDate == dueDate {
                 filteredItems.append(item)
             }
         }
@@ -39,7 +39,7 @@ struct FilterDateView: View {
 
     func getfilteredItems() {
         for item in items {
-            if item.date == date {
+            if item.dueDate == dueDate {
                 filteredItems.append(item)
             }
         }
@@ -49,7 +49,7 @@ struct FilterDateView: View {
         NavigationView {
             VStack(alignment: .leading, spacing: 10) {
                 Form {
-                    DatePicker("Date", selection: $date)
+                    DatePicker("Date", selection: $dueDate)
                 }
                 List {
                     ForEach(filteredItems, id: \.id) {

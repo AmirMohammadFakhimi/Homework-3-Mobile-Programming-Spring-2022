@@ -10,17 +10,23 @@ import SwiftUI
 class TodoItem {
     var name = ""
     var ID: Int
-    var date = Date()
+    var dueDate = Date()
+    var createdDate = Date.now
     var dateToShow = ""
     var id = 0
 
-    init(name: String, date: Date) {
+    init(name: String, dueDate: Date) {
         self.name = name
-        self.date = date
-        self.dateToShow = date.formatted()
+        self.dueDate = dueDate
+        self.dateToShow = dueDate.formatted()
         self.ID = id
         id += 1
     }
+}
+
+enum SortType: String, CaseIterable, Identifiable {
+    case createdDate, dueDate, name
+    var id: Self { self }
 }
 
 struct ContentView: View {
@@ -29,6 +35,7 @@ struct ContentView: View {
     
     @State var isActive = false
     @State var isShowingSortSheet = false
+    @State var selectedSortType: SortType = .createdDate
     
     func deleteItems(at offsets: IndexSet) {
         items.remove(atOffsets: offsets)
@@ -61,32 +68,25 @@ struct ContentView: View {
             }
             .navigationTitle("My Todos")
             .toolbar {
-                VStack {
-                    NavigationLink {
-                        AddToDoView(items: $items)
-                    } label: {
-                        Text("+")
-                    }
+                HStack {
                     Button {
                         isShowingSortSheet.toggle()
                     } label: {
                         Text("Sort Options")
                     }
+                    NavigationLink {
+                        AddToDoView(items: $items)
+                    } label: {
+                        Text("+")
+                    }
                 }
                 
             }
             .sheet(isPresented: $isShowingSortSheet) {
-                HStack {
-                    Text("License Agreement")
-                        .font(.title)
-                        .padding(50)
-                    Text("""
-                    Terms and conditions go here.
-                    """)
-                    .padding(50)
-                    Button("Dismiss",
-                           action: { isShowingSortSheet.toggle() })
-                    
+                Picker("Sort Type", selection: $selectedSortType) {
+                    Text("By Created Date").tag(SortType.createdDate)
+                    Text("By Due Date").tag(SortType.dueDate)
+                    Text("By Name").tag(SortType.name)
                 }
             }
         }
