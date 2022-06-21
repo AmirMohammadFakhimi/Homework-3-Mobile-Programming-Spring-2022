@@ -17,8 +17,27 @@ struct FilterDateView: View {
         self._items = items
         _date = State(initialValue: Date())
     }
+
+    [picker addTarget:self action:@selector(dateChanged:) 
+              forControlEvents:UIControlEventValueChanged]
+
+    func dateChanged:(id)sender{
+        for item in items {
+            if item.date == date {
+                filteredItems.append(item)
+            }
+        }
+    }
     
     func buttonTapped() {
+        for item in items {
+            if item.date == date {
+                filteredItems.append(item)
+            }
+        }
+    }
+
+    func getfilteredItems() {
         for item in items {
             if item.date == date {
                 filteredItems.append(item)
