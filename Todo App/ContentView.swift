@@ -37,20 +37,20 @@ struct ContentView: View {
         TodoItem(name: "hi2", dueDate: Date.now)
     ]
     
-    @State var sortedItems: [TodoItem] {
-            get {
-                if (selectedSortType == SortType.dueDate) {
-                    items = items.sorted(by: { $0.dueDate > $1.dueDate })
-                } else if (selectedSortType == SortType.createdDate) {
-                    items = items.sorted(by: { $0.createdDate > $1.createdDate })
-                } else if (selectedSortType == SortType.name) {
-                    items = items.sorted(by: { $0.name > $1.name })
-                }
-            }
-            set {
-                items = newValue
-            }
-        }
+//    @State var sortedItems: [TodoItem] {
+//            get {
+//                if (selectedSortType == SortType.dueDate) {
+//                    items = items.sorted(by: { $0.dueDate > $1.dueDate })
+//                } else if (selectedSortType == SortType.createdDate) {
+//                    items = items.sorted(by: { $0.createdDate > $1.createdDate })
+//                } else if (selectedSortType == SortType.name) {
+//                    items = items.sorted(by: { $0.name > $1.name })
+//                }
+//            }
+//            set {
+//                items = newValue
+//            }
+//        }
     
     @State var isActive = false
     @State var isShowingSortSheet = false
