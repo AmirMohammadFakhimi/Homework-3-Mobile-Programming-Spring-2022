@@ -13,14 +13,14 @@ class TodoItem {
     var dueDate = Date()
     var createdDate = Date.now
     var dateToShow = ""
-    var id = 0
+    static var idCounter = 0
 
     init(name: String, dueDate: Date) {
         self.name = name
         self.dueDate = dueDate
         self.dateToShow = dueDate.formatted()
-        self.ID = id
-        id += 1
+        self.ID = TodoItem.idCounter
+        TodoItem.idCounter += 1
     }
 }
 
@@ -53,7 +53,7 @@ struct ContentView: View {
         NavigationView {
             List {
                 Text("number of Todos: \(getToDoNum())")
-                ForEach(items, id: \.id) {
+                ForEach(items, id: \.ID) {
                     item in
                     NavigationLink(destination: AddToDoView(items: $items, itemToEdit: item)) {
                         VStack(alignment: .leading, spacing: 10) {

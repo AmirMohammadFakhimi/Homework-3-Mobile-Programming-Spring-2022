@@ -13,29 +13,19 @@ struct FilterDateView: View {
     @State var filteredItems: [TodoItem] = [] {
         didSet {
             for item in items {
-                if item.date == date {
+                if item.dueDate == dueDate {
                         filteredItems.append(item)
                 }
             }
         }
     }
-    @State var date: Date
+    @State var dueDate: Date
     
     init(items: Binding<[TodoItem]>) {
         self._items = items
         _dueDate = State(initialValue: Date())
     }
 
-//    [picker addTarget:self action:@selector(dateChanged:)
-//              forControlEvents:UIControlEventValueChanged]
-//
-//    func dateChanged:(id)sender{
-//        for item in items {
-//            if item.date == date {
-//                filteredItems.append(item)
-//            }
-//        }
-//    }
     
     func buttonTapped() {
         for item in items {
@@ -60,7 +50,7 @@ struct FilterDateView: View {
                     DatePicker("Date", selection: $dueDate)
                 }
                 List {
-                    ForEach(filteredItems, id: \.id) {
+                    ForEach(filteredItems, id: \.ID) {
                         item in
                         VStack(alignment: .leading, spacing: 10) {
                             Text(item.name)
