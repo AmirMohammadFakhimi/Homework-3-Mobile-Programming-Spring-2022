@@ -35,14 +35,22 @@ struct ContentView: View {
         TodoItem(name: "hi1", dueDate: Date.now),
         TodoItem(name: "Amir", dueDate: Date.now),
         TodoItem(name: "hi2", dueDate: Date.now)
-    ] {
-        get {
-            models.sorted(by: { $0.timestamp > $1.timestamp })
+    ]
+    
+    @State var sortedItems: [TodoItem] {
+            get {
+                if (selectedSortType == SortType.dueDate) {
+                    items = items.sorted(by: { $0.dueDate > $1.dueDate })
+                } else if (selectedSortType == SortType.createdDate) {
+                    items = items.sorted(by: { $0.createdDate > $1.createdDate })
+                } else if (selectedSortType == SortType.name) {
+                    items = items.sorted(by: { $0.name > $1.name })
+                }
+            }
+            set {
+                items = newValue
+            }
         }
-        set {
-            models = newValue
-        }
-    }
     
     @State var isActive = false
     @State var isShowingSortSheet = false
