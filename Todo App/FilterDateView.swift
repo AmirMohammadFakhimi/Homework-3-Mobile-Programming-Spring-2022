@@ -34,12 +34,8 @@ struct FilterDateView: View {
          VStack(alignment: .leading) {
             List {
                 DatePicker("Date", selection: $dueDate, displayedComponents: .date)
-                    .onChange(of: filteredItems) { value in
-                        value.dueDate.get(.day, .month, .year).year == dueDate.get(.day, .month, .year).year &&
-                           value.dueDate.get(.day, .month, .year).month == dueDate.get(.day, .month, .year).month &&
-                           value.dueDate.get(.day, .month, .year).day == dueDate.get(.day, .month, .year).day {
-                            filteredItems.append(value)
-                        }
+                    .onChange(of: dueDate) { value in
+                        buttonTapped()
                     }
                 
                 Spacer()
