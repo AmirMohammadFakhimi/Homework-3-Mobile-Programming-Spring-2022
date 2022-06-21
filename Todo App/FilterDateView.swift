@@ -10,8 +10,16 @@ import SwiftUI
 struct FilterDateView: View {
 
     @Binding var items: [TodoItem]
-    @State var filteredItems: [TodoItem] = []
-    @State var dueDate: Date
+    @State var filteredItems: [TodoItem] = [] {
+        didSet {
+            for item in items {
+                if item.date == date {
+                        filteredItems.append(item)
+                }
+            }
+        }
+    }
+    @State var date: Date
     
     init(items: Binding<[TodoItem]>) {
         self._items = items
