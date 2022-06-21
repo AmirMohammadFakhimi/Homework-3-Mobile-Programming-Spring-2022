@@ -10,7 +10,15 @@ import SwiftUI
 struct FilterDateView: View {
 
     @Binding var items: [TodoItem]
-    @State var filteredItems: [TodoItem] = []
+    @State var filteredItems: [TodoItem] = [] {
+        didSet {
+            for item in items {
+                if item.date == date {
+                        filteredItems.append(item)
+                }
+            }
+        }
+    }
     @State var date: Date
     
     init(items: Binding<[TodoItem]>) {
@@ -18,16 +26,16 @@ struct FilterDateView: View {
         _date = State(initialValue: Date())
     }
 
-    [picker addTarget:self action:@selector(dateChanged:) 
-              forControlEvents:UIControlEventValueChanged]
+    // [picker addTarget:self action:@selector(dateChanged:) 
+    //           forControlEvents:UIControlEventValueChanged]
 
-    func dateChanged:(id)sender{
-        for item in items {
-            if item.date == date {
-                filteredItems.append(item)
-            }
-        }
-    }
+    // func dateChanged:(id)sender{
+    //     for item in items {
+    //         if item.date == date {
+    //             filteredItems.append(item)
+    //         }
+    //     }
+    // }
     
     func buttonTapped() {
         for item in items {
