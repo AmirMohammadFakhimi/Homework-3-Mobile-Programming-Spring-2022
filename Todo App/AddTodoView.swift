@@ -61,7 +61,7 @@ struct AddToDoView: View {
             TextField("Name", text: $name)
             DatePicker("Date", selection: $dueDate)
         }
-        .navigationTitle(Text("Add new ToDo"))
+        .navigationTitle(Text("Add new Todo"))
         .toolbar {
             Button {
                 buttonTapped()

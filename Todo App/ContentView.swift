@@ -31,11 +31,7 @@ enum SortType: String, CaseIterable, Identifiable {
 
 struct ContentView: View {
     @State var isNavLinkActive = false
-    @State var items: [TodoItem] = [
-        TodoItem(name: "hi1", dueDate: Date.now),
-        TodoItem(name: "Amir", dueDate: Date.now),
-        TodoItem(name: "hi2", dueDate: Date.now)
-    ]
+    @State var items: [TodoItem] = []
     
 //    @State var sortedItems: [TodoItem] {
 //            get {
@@ -73,7 +69,15 @@ struct ContentView: View {
             NavigationView {
                 List {
                     Text("number of Todos: \(getToDoNum())")
-                    ForEach(items, id: \.ID) {
+                    ForEach(items.sorted(by: { TodoItem1, TodoItem2 in
+                        if (selectedSortType == SortType.dueDate) {
+                            return TodoItem1.dueDate < TodoItem2.dueDate
+                        } else if (selectedSortType == SortType.createdDate) {
+                            return TodoItem1.createdDate < TodoItem2.createdDate
+                        } else {
+                            return TodoItem1.name < TodoItem2.name
+                        }
+                    }), id: \.ID) {
                         item in
                         NavigationLink(destination: AddToDoView(items: $items, itemToEdit: item)) {
                             VStack(alignment: .leading, spacing: 10) {
@@ -103,10 +107,27 @@ struct ContentView: View {
                     
                 }
                 .sheet(isPresented: $isShowingSortSheet) {
-                    Picker("Sort Type", selection: $selectedSortType) {
-                        Text("By Created Date").tag(SortType.createdDate)
-                        Text("By Due Date").tag(SortType.dueDate)
-                        Text("By Name").tag(SortType.name)
+                    List {
+                        Picker("Sort Type", selection: $selectedSortType) {
+                            Text("By Created Date").tag(SortType.createdDate)
+                            Text("By Due Date").tag(SortType.dueDate)
+                            Text("By Name").tag(SortType.name)
+                        }
+                        .pickerStyle(.inline)
+                        .onSubmit {
+                            if (selectedSortType == SortType.dueDate) {
+                                items = items.sorted(by: { $0.dueDate > $1.dueDate })
+                            } else if (selectedSortType == SortType.createdDate) {
+                                items = items.sorted(by: { $0.createdDate > $1.createdDate })
+                            } else if (selectedSortType == SortType.name) {
+                                items = items.sorted(by: { $0.name > $1.name })
+                            }
+                        }
+                    }
+                    Button {
+                        isShowingSortSheet.toggle()
+                    } label: {
+                        Text("Done")
                     }
                 }
             }
