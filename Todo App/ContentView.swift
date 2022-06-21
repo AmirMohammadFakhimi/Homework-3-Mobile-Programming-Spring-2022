@@ -90,7 +90,7 @@ struct ContentView: View {
                     }
                     .onDelete(perform: deleteItems)
                 }
-                .navigationTitle("My Todos")
+                .navigationTitle("TODO")
                 .toolbar {
                     HStack {
                         Button {

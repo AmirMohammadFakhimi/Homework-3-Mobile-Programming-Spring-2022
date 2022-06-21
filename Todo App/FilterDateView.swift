@@ -19,6 +19,7 @@ struct FilterDateView: View {
  }
 
  func buttonTapped() {
+     filteredItems.removeAll()
     for item in items {
         if item.dueDate.get(.day, .month, .year).year == dueDate.get(.day, .month, .year).year &&
            item.dueDate.get(.day, .month, .year).month == dueDate.get(.day, .month, .year).month &&
@@ -49,14 +50,8 @@ struct FilterDateView: View {
                  }
              }
          }
-         .navigationTitle("Search Todos by date")
-         .toolbar {
-             Button {
-                 buttonTapped()
-             } label: {
-                 Text("Search")
-             }
-         }
+         .navigationTitle("Search by Date")
+
      }
      
  }
