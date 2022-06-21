@@ -28,6 +28,7 @@ struct ContentView: View {
     @State var items: [TodoItem] = []
     
     @State var isActive = false
+    @State var isShowingSortSheet = false
     
     func deleteItems(at offsets: IndexSet) {
         items.remove(atOffsets: offsets)
@@ -60,10 +61,32 @@ struct ContentView: View {
             }
             .navigationTitle("My Todos")
             .toolbar {
-                NavigationLink {
-                    AddToDoView(items: $items)
-                } label: {
-                    Text("+")
+                VStack {
+                    NavigationLink {
+                        AddToDoView(items: $items)
+                    } label: {
+                        Text("+")
+                    }
+                    Button {
+                        isShowingSortSheet.toggle()
+                    } label: {
+                        Text("Sort Options")
+                    }
+                }
+                
+            }
+            .sheet(isPresented: $isShowingSortSheet) {
+                HStack {
+                    Text("License Agreement")
+                        .font(.title)
+                        .padding(50)
+                    Text("""
+                    Terms and conditions go here.
+                    """)
+                    .padding(50)
+                    Button("Dismiss",
+                           action: { isShowingSortSheet.toggle() })
+                    
                 }
             }
         }
