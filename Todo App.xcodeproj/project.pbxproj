@@ -15,6 +15,7 @@
 		95FA123F2861F3C3004F028F /* Todo_AppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FA123E2861F3C3004F028F /* Todo_AppUITests.swift */; };
 		95FA12412861F3C3004F028F /* Todo_AppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FA12402861F3C3004F028F /* Todo_AppUITestsLaunchTests.swift */; };
 		95FA12502861F589004F028F /* AddTodoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FA124F2861F589004F028F /* AddTodoView.swift */; };
+		95FA12522862224C004F028F /* FilterDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FA12512862224C004F028F /* FilterDateView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +47,7 @@
 		95FA123E2861F3C3004F028F /* Todo_AppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo_AppUITests.swift; sourceTree = "<group>"; };
 		95FA12402861F3C3004F028F /* Todo_AppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo_AppUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		95FA124F2861F589004F028F /* AddTodoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTodoView.swift; sourceTree = "<group>"; };
+		95FA12512862224C004F028F /* FilterDateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterDateView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +100,7 @@
 			children = (
 				95FA12232861F3C1004F028F /* Todo_AppApp.swift */,
 				95FA12252861F3C1004F028F /* ContentView.swift */,
+				95FA12512862224C004F028F /* FilterDateView.swift */,
 				95FA124F2861F589004F028F /* AddTodoView.swift */,
 				95FA12272861F3C2004F028F /* Assets.xcassets */,
 				95FA12292861F3C2004F028F /* Preview Content */,
@@ -262,6 +265,7 @@
 			files = (
 				95FA12262861F3C1004F028F /* ContentView.swift in Sources */,
 				95FA12502861F589004F028F /* AddTodoView.swift in Sources */,
+				95FA12522862224C004F028F /* FilterDateView.swift in Sources */,
 				95FA12242861F3C1004F028F /* Todo_AppApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
