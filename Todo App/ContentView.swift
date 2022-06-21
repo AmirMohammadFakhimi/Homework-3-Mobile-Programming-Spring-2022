@@ -31,11 +31,22 @@ enum SortType: String, CaseIterable, Identifiable {
 
 struct ContentView: View {
     @State var isNavLinkActive = false
-    @State var items: [TodoItem] = []
+    @State var items: [TodoItem] = [
+        TodoItem(name: "hi1", dueDate: Date.now),
+        TodoItem(name: "Amir", dueDate: Date.now),
+        TodoItem(name: "hi2", dueDate: Date.now)
+    ] {
+        get {
+            models.sorted(by: { $0.timestamp > $1.timestamp })
+        }
+        set {
+            models = newValue
+        }
+    }
     
     @State var isActive = false
     @State var isShowingSortSheet = false
-    @State var selectedSortType: SortType = .createdDate
+    @State var selectedSortType: SortType = .name
     
     func deleteItems(at offsets: IndexSet) {
         items.remove(atOffsets: offsets)
@@ -53,8 +64,7 @@ struct ContentView: View {
         NavigationView {
             List {
                 Text("number of Todos: \(getToDoNum())")
-                ForEach(items, id: \.ID) {
-                    item in
+                ForEach(items, id: \.ID) { item in
                     NavigationLink(destination: AddToDoView(items: $items, itemToEdit: item)) {
                         VStack(alignment: .leading, spacing: 10) {
                             Text(item.name)
@@ -65,6 +75,15 @@ struct ContentView: View {
                     }
                 }
                 .onDelete(perform: deleteItems)
+//                .onAppear {
+//                    if (selectedSortType == SortType.dueDate) {
+//                        items = items.sorted(by: { $0.dueDate > $1.dueDate })
+//                    } else if (selectedSortType == SortType.createdDate) {
+//                        items = items.sorted(by: { $0.createdDate > $1.createdDate })
+//                    } else if (selectedSortType == SortType.name) {
+//                        items = items.sorted(by: { $0.name > $1.name })
+//                    }
+//                }
             }
             .navigationTitle("My Todos")
             .toolbar {
@@ -75,7 +94,7 @@ struct ContentView: View {
                         Text("Sort Options")
                     }
                     NavigationLink {
-                        AddToDoView(items: $items)
+                        FilterDateView(items: $items)
                     } label: {
                         Text("+")
                     }
@@ -83,10 +102,19 @@ struct ContentView: View {
                 
             }
             .sheet(isPresented: $isShowingSortSheet) {
-                Picker("Sort Type", selection: $selectedSortType) {
-                    Text("By Created Date").tag(SortType.createdDate)
-                    Text("By Due Date").tag(SortType.dueDate)
-                    Text("By Name").tag(SortType.name)
+                List {
+                    Picker("Sort Type", selection: $selectedSortType) {
+                        Text("By Created Date").tag(SortType.createdDate)
+                        Text("By Due Date").tag(SortType.dueDate)
+                        Text("By Name").tag(SortType.name)
+                    }
+                    .pickerStyle(.inline)
+                }
+
+                Button {
+                    isShowingSortSheet.toggle()
+                } label: {
+                    Text("Done")
                 }
             }
         }
