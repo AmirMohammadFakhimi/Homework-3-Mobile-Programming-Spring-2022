@@ -10,7 +10,11 @@ import SwiftUI
 struct FilterDateView: View {
 
  @Binding var items: [TodoItem]
- @State var filteredItems: [TodoItem] = []
+ @State var filteredItems: [TodoItem] = [] {
+    didSet {
+        buttonTapped()
+    }
+}
  @State var date: Date
 
  init(items: Binding<[TodoItem]>) {
@@ -19,12 +23,14 @@ struct FilterDateView: View {
  }
 
  func buttonTapped() {
-     for item in items {
-         if item.dueDate == date {
-             filteredItems.append(item)
-         }
-     }
- }
+    for item in items {
+        if item.dueDate.getYear == date.getYear &&
+           item.dueDate.getMonth == date.getMonth &&
+           item.dueDate.getDay == date.getDay {
+            filteredItems.append(item)
+        }
+    }
+}
 
  var body: some View {
      NavigationView {
